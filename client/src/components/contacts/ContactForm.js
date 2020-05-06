@@ -10,7 +10,6 @@ const ContactForm = () => {
         if (current !== null) {
             setContact(current);
         } else {
-            console.log("useeffect");
             setContact({
                 name: "",
                 email: "",
@@ -18,7 +17,7 @@ const ContactForm = () => {
                 type: "personal",
             });
         }
-    }, [contactContext]);
+    }, [contactContext, current]);
 
     const [contact, setContact] = useState({
         name: "",

@@ -2,4 +2,3 @@
 	"mongoURI": "mongodb+srv://test:test1234@victorycluster-iax1h.mongodb.net/test?retryWrites=true&w=majority",
 	"jwtSecret": "secret"
 }
-  
