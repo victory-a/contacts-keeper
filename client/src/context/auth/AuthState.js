@@ -19,7 +19,6 @@ const AuthState = ({ children }) => {
 
     // LOAD USER
     const loadUser = async () => {
-        console.log('loaduser ran')
         if (localStorage.token) {
             setAuthToken(localStorage.token);
         }

@@ -66,7 +66,6 @@ const ContactState = ({ children }) => {
 
     // Delete contact
     const deleteContact = async (id) => {
-        console.log("delete ran");
         try {
             await axios.delete(`/api/contacts/${id}`);
             dispatch({
