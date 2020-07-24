@@ -41,7 +41,7 @@ export const NavBar = ({ title, icon }) => {
     return (
         <div className="navbar bg-primary">
             <h1>
-                <i className={icon} /> {title}
+                Phonebook
             </h1>
             <ul>
                 {isAuthenticated ? authLinks : guestLinks}
