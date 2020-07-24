@@ -1,0 +1,37 @@
+.btn button {
+    width: 150px;
+    height: 37px;
+    color: #fff;
+    padding: 8px 0;
+    font-size: 13px;
+    transition: 0.5s;
+    /* margin: 0 3px; */
+    border-radius: 4px;
+    background: #007BFF;
+    border: 1px solid #007BFF;
+    color: #fff;
+}
+
+.btn.btn_lg button {
+    height: 55px;
+    width: 100%;
+    font-size: 1.4rem;
+    padding: 14px 0;
+}
+
+.btn button:hover {
+    background-color: #025d8a;
+    transform: translateY(2px);
+}
+
+.btn button:focus,
+.btn button:active,
+.btn.btn_lg button:focus,
+.btn.btn_lg button:active {
+    outline-color: purple;
+}
+
+.btn button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}

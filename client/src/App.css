@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
 /* Global Styles */
 :root {
@@ -16,7 +16,7 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: Helvetica, Poppins, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
@@ -439,4 +439,11 @@ table th {
     text-align: center;
     justify-content: center;
   }
+}
+
+.login-form-container {
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 4rem;
 }

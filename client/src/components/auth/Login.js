@@ -1,6 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
+import { Formik, Form } from 'formik';
+
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
+
+import { loginSchema } from 'utils/validationSchema';
+
+import { TextInput } from '../Input';
+import Button from 'components/Button';
+import { ButtonSpinner } from "components/loader";
+
+
 
 const Login = (props) => {
     const alertContext = useContext(AlertContext);
@@ -21,41 +31,43 @@ const Login = (props) => {
         // eslint-disable-next-line
     }, [error, isAuthenticated, props.history]);
 
-    const [user, setUser] = useState({
+    const initialValues = {
         email: '',
         password: '',
-    });
+    };
 
-    const { email, password } = user;
-
-    const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        if (email === '' || password === '') {
-            setAlert('Please fill in all fields');
-        } else {
-            login({ email, password });
-        }
+    const handleSubmit = (values, setSubmitting) => {
+        setSubmitting(true);
+        login({ ...values });
     };
 
     return (
-        <div className='form-container'>
-            <h1>
-                <span className='text-primary'>Login</span>
-            </h1>
-            <form onSubmit={onSubmit}>
-                <div className='form-group'>
-                    <label htmlFor='email'>Email Address</label>
-                    <input type='email' name='email' value={email} onChange={onChange} required />
-                </div>
-                <div className='form-group'>
-                    <label htmlFor='password'>Password</label>
-                    <input type='password' name='password' value={password} onChange={onChange} required />
-                </div>
-                <input type='submit' value='Login' className='btn btn-primary btn-block' />
-            </form>
-        </div>
+        <Fragment>
+            <div className={'login-form-container'}>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={loginSchema}
+                onSubmit={(values, { setSubmitting }) => {
+                    handleSubmit(values, setSubmitting);
+                }}>
+                {({ isSubmitting }) => (
+                    <Form>
+                        <TextInput name='email' label='Email' placeholder='Enter your full email' />
+                        <TextInput name='password' type='password' label='Password' placeholder='Enter your password' />
+                        <Button size='large' type='submit' disabled={isSubmitting}>
+                            {isSubmitting ? (
+                                <p>
+                                    <ButtonSpinner />
+                                </p>
+                            ) : (
+                                'Login'
+                            )}
+                        </Button>
+                    </Form>
+                )}
+            </Formik>
+            </div>
+        </Fragment>
     );
 };
 

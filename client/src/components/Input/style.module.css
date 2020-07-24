@@ -1,0 +1,71 @@
+/* select input */
+.input select {
+  height: 4rem;
+  font-size: 1.4rem;
+  letter-spacing: 0.1px;
+  transition: border-color 0.5s ease-in-out 0s;
+  width: 100%;
+  /* background-color: #fff4f4; */
+}
+
+p.has_error {
+  font-size: 10px !important;
+  margin-top: -10px;
+}
+
+/* text input */
+.input {
+  margin-bottom: 2rem;
+}
+
+.input input {
+  height: 4rem;
+  padding: 5px;
+  text-indent: 3px;
+  font-size: 1.4rem;
+  outline: none;
+  letter-spacing: 0.1px;
+  transition: border-color 0.5s ease-in 0s;
+  width: 100%;
+  border: 1px solid #007bff;
+  /* background-color: #fff4f4; */
+}
+
+/* textarea */
+.textarea_container textarea {
+  height: 12rem;
+  padding: 5px;
+  /* text-indent: 3px; */
+  font-size: 1.4rem;
+  outline: none;
+  letter-spacing: 0.1px;
+  transition: border-color 0.5s ease-in 0s;
+  width: 100%;
+  border: 1px solid #007bff;
+  /* background-color: #007BFF; */
+}
+
+/* shared styles */
+.input,
+.select_input_container,
+.textarea_container,
+.number_input_container {
+  margin-bottom: 1.5rem;
+}
+
+.labeltext {
+  font-size: 1.4rem;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.has_error {
+  color: red;
+  font-size: 1rem;
+}
+
+.has_error input,
+.has_error select {
+  border: 1px solid rgb(255, 0, 0);
+  box-shadow: 0.5px 1px 4px rgba(255, 0, 0, 0.3);
+}
