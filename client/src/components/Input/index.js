@@ -10,7 +10,7 @@ export const TextInput = ({ label, type = "text", ...props }) => {
   const [field, meta] = useField(props);
 
   return (
-    <div className={meta.touched && meta.error ? `${has_error} ${input}` : `${input} mb-5`}>
+    <div className={meta.touched && meta.error ? `${has_error} ${input}` : `${input}`}>
       <div>
         <label className={`text-dark ${labeltext}`}>{label}</label>
         <input type={type} {...field} {...props} />

@@ -1,6 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
-import AlertContext from "../../context/alert/alertContext";
-import AuthContext from "../../context/auth/authContext";
+import React, { Fragment, useContext, useEffect } from 'react';
+import { Formik, Form } from 'formik';
+
+import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/authContext';
+
+import doAlert from "utils/doAlert";
+
+import { registerSchema } from 'utils/validationSchema';
+import { TextInput } from '../Input';
+import Button from 'components/Button';
+import { ButtonSpinner } from 'components/loader';
 
 const Register = (props) => {
     const alertContext = useContext(AlertContext);
@@ -14,59 +23,69 @@ const Register = (props) => {
             props.history.push('/');
         }
 
-        if (error === "User already exists") {
-            setAlert(error, "danger");
+        if (error === 'User already exists') {
+            doAlert(error, 'error')
             clearErrors();
         }
         // eslint-disable-next-line
     }, [error, isAuthenticated, props.history]);
-    const [user, setUser] = useState({
-        name: "",
-        email: "",
-        password: "",
-        password2: "",
-    });
 
-    const { name, email, password, password2 } = user;
+    const initialValues = {
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+    };
 
-    const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
+    const handleSubmit = (values, setSubmitting) => {
+        setSubmitting(true);
+        register({ ...values });
+        setSubmitting(false);
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-        if (name === "" || email === "" || password === "") {
-            setAlert("please enter all fields", "danger");
-        } else if (password !== password2) {
-            setAlert("Passwords do not match", "danger");
-        } else {
-            register({ name, email, password });
-        }
     };
 
     return (
-        <div className="form-container">
+        <Fragment>
+            <div className="form-container">
             <h1>
                 <span className="text-primary">Register</span>
             </h1>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name" value={name} onChange={onChange} required />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email Address</label>
-                    <input type="email" name="email" value={email} onChange={onChange} required />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" value={password} onChange={onChange} minLength="6" required />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password2">Confirm Password</label>
-                    <input type="password" name="password2" value={password2} onChange={onChange} minLength="6" required />
-                </div>
-                <input type="submit" value="Register" className="btn btn-primary btn-block" />
-            </form>
-        </div>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={registerSchema}
+                    onSubmit={(values, { setSubmitting }) => {
+                        handleSubmit(values, setSubmitting);
+                    }}>
+                    {({ isSubmitting }) => (
+                        <Form>
+                            <TextInput name='name' label='name' placeholder='Enter your name' />
+                            <TextInput name='email' label='Email' placeholder='Enter your email' />
+                            <TextInput
+                                name='password'
+                                type='password'
+                                label='Password'
+                                placeholder='Enter your password'
+                            />
+                            <TextInput
+                                name='confirmPassword'
+                                type='password'
+                                label='Confirm Password'
+                                placeholder='Enter your password'
+                            />
+                            <Button size='large' type='submit' disabled={isSubmitting}>
+                                {isSubmitting ? (
+                                    <p>
+                                        <ButtonSpinner />
+                                    </p>
+                                ) : (
+                                    'Login'
+                                )}
+                            </Button>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
+        </Fragment>
     );
 };
 

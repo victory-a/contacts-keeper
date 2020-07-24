@@ -6,11 +6,11 @@ import AuthContext from '../../context/auth/authContext';
 
 import { loginSchema } from 'utils/validationSchema';
 
+import doAlert from "utils/doAlert";
+
 import { TextInput } from '../Input';
 import Button from 'components/Button';
-import { ButtonSpinner } from "components/loader";
-
-
+import { ButtonSpinner } from 'components/loader';
 
 const Login = (props) => {
     const alertContext = useContext(AlertContext);
@@ -25,7 +25,7 @@ const Login = (props) => {
         }
 
         if (error === 'Invalid Credentials') {
-            setAlert(error, 'danger');
+            doAlert(error, 'error')
             clearErrors();
         }
         // eslint-disable-next-line
@@ -39,33 +39,42 @@ const Login = (props) => {
     const handleSubmit = (values, setSubmitting) => {
         setSubmitting(true);
         login({ ...values });
+        setSubmitting(false);
     };
 
     return (
         <Fragment>
-            <div className={'login-form-container'}>
-            <Formik
-                initialValues={initialValues}
-                validationSchema={loginSchema}
-                onSubmit={(values, { setSubmitting }) => {
-                    handleSubmit(values, setSubmitting);
-                }}>
-                {({ isSubmitting }) => (
-                    <Form>
-                        <TextInput name='email' label='Email' placeholder='Enter your full email' />
-                        <TextInput name='password' type='password' label='Password' placeholder='Enter your password' />
-                        <Button size='large' type='submit' disabled={isSubmitting}>
-                            {isSubmitting ? (
-                                <p>
-                                    <ButtonSpinner />
-                                </p>
-                            ) : (
-                                'Login'
-                            )}
-                        </Button>
-                    </Form>
-                )}
-            </Formik>
+            <div className='form-container'>
+                <h1>
+                    <span className='text-primary'>Login</span>
+                </h1>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={loginSchema}
+                    onSubmit={(values, { setSubmitting }) => {
+                        handleSubmit(values, setSubmitting);
+                    }}>
+                    {({ isSubmitting, dirty, isValid }) => (
+                        <Form>
+                            <TextInput name='email' label='Email' placeholder='Enter your email' />
+                            <TextInput
+                                name='password'
+                                type='password'
+                                label='Password'
+                                placeholder='Enter your password'
+                            />
+                            <Button size='large' type='submit' disabled={!dirty || !isValid || isSubmitting}>
+                                {isSubmitting ? (
+                                    <p>
+                                        <ButtonSpinner />
+                                    </p>
+                                ) : (
+                                    'Login'
+                                )}
+                            </Button>
+                        </Form>
+                    )}
+                </Formik>
             </div>
         </Fragment>
     );

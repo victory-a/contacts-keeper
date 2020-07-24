@@ -313,7 +313,7 @@ textarea {
   display: block;
   width: 100%;
   padding: 0.4rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   border: 1px solid #ccc;
 }
 
@@ -442,6 +442,13 @@ table th {
 }
 
 .login-form-container {
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 4rem;
+}
+
+.register-form-container {
   width: 80%;
   max-width: 500px;
   margin: 0 auto;
